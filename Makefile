@@ -9,7 +9,7 @@
 #    Updated: 2017/06/23 14:08:17 by arosset          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-NAME			= 	fdf
+NAME			= 	lem_in
 
 CC				=	gcc
 FLAGS			=	-Wall -Wextra -Werror
@@ -23,12 +23,11 @@ LIB_LINK		=	./libft/libft.a
 
 INC_PATH		= 	./includes
 SRC_PATH		=	./src
-SRC_NAME 		= 	fdf.c error.c parser.c ft_utility.c ft_hook.c ft_draw.c\
-					ft_calc.c ft_matrice.c color.c ft_display.c
+SRC_NAME 		= 	main_lem_in.c
 OBJ_PATH		=	./obj
 
 OBJ_NAME		=	$(SRC_NAME:.c=.o)
-INC_NAME		=	fdf.h
+INC_NAME		=	lem_in.h
 
 OBJ 			= $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
 
