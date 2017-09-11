@@ -1,0 +1,4 @@
+105
+salle_1 10 10
+salle_2 10 10
+salle_1 salle_2

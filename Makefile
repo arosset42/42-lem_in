@@ -23,7 +23,7 @@ LIB_LINK		=	./libft/libft.a
 
 INC_PATH		= 	./includes
 SRC_PATH		=	./src
-SRC_NAME 		= 	main_lem_in.c
+SRC_NAME 		= 	main_lem_in.c error.c parser.c ft_list_lem_in.c ft_utility.c
 OBJ_PATH		=	./obj
 
 OBJ_NAME		=	$(SRC_NAME:.c=.o)

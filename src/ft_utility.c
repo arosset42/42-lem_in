@@ -1,22 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_lem_in.c                                      :+:      :+:    :+:   */
+/*   ft_utility.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arosset <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/11 15:05:46 by arosset           #+#    #+#             */
-/*   Updated: 2017/09/11 15:05:48 by arosset          ###   ########.fr       */
+/*   Created: 2017/09/11 15:46:34 by arosset           #+#    #+#             */
+/*   Updated: 2017/09/11 15:46:36 by arosset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 
-int main()
+int		ft_count_tab(char **tab)
 {
-	t_spec	*lem_param;
+	int		i;
 
-	lem_param = ft_init_struct_parser();
-	ft_parser(lem_param);
-    return (0);
+	i = 0;
+	while (tab[i])
+		i++;
+	return (i);
+}
+
+int		ft_isnumber(char *line)
+{
+	int		i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (ft_isdigit(line[i]))
+			i++;
+		else
+			return (0);
+	}
+	return (1);
 }
