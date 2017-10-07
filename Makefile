@@ -14,9 +14,6 @@ NAME			= 	lem_in
 CC				=	gcc
 FLAGS			=	-Wall -Wextra -Werror
 
-LIB_MLX			=	./minilibx_macos
-MLX 			=	./minilibx_macos/libmlx.a
-
 LIB_PATH		= 	./libft/
 LIB				=	./libft/libft.a
 LIB_LINK		=	./libft/libft.a
@@ -50,7 +47,7 @@ TEST 			= 	$(YELLOW)DEBUT TEST$(RESET)
 all: $(LIB) $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) $(LIB_LINK) $(FLAGS) $(OBJ) $(MLX) -framework OpenGL -framework AppKit -o $@
+	@$(CC) $(LIB_LINK) $(FLAGS) $(OBJ)  -o $@
 	@echo "Exec =>"$(YELLOW) $(NAME) $(RESET): $(SUCCESS)
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
@@ -61,7 +58,6 @@ $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 
 $(LIB):
 	@make -C $(LIB_PATH)
-	@make -C $(LIB_MLX)
 
 clean:
 	@rm -rf $(OBJ) $(OBJ_PATH)
