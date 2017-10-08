@@ -12,39 +12,60 @@
 
 #include "../includes/lem_in.h"
 
-void 	malloc_error(void)
+int		addend_lem(t_lem *list, char *name)
 {
-	exit(1);
-}
-
-t_lem	*init_list_lem(void)
-{
-	t_lem	*new;
+	t_lem 	*new;
+	t_lem 	*tmp;
 
 	if (!(new = (t_lem *)malloc(sizeof(t_lem))))
 		malloc_error();
-	new->name = NULL;
-	new->param = NULL;
+	new->name = ft_strdup(name);
 	new->next = NULL;
-	return (new);
+	tmp = list;
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = new;
+	return (0);
 }
 
-void 	init_env(t_env *s_env)
+t_lem 	*init_list()
 {
-	s_env->ant = 0;
-	s_env->room = init_list_lem();
-	s_env->tunnel = init_list_lem();
+	t_lem	*list;
+
+	if (!(list = (t_lem *)malloc(sizeof(t_lem))))
+		malloc_error();
+	list->name = NULL;
+	list->param = NULL;
+	list->next = NULL;
+	return (list);
+}
+
+t_env 	init_env()
+{
+	t_env	*env;
+
+	if (!(env = (t_env *)malloc(sizeof(t_env))))
+		malloc_error();
+	env->ant = 0;
+	env->room = init_list();
+	env->tunnel = init_list();
+	return (*env);
+}
+
+void 	test(t_env *env)
+{
+	env->ant = 10;
+	env->room->name = "Test";
+	addend_lem(env->room, "Test2");
 }
 
 int main()
 {
-	t_env	*s_env;
+	t_env	env;
 
-	if (!(s_env = (t_env *)malloc(sizeof(t_env))))
-		malloc_error();
-	init_env(&s_env);
-	ft_printf("%d\n", s_env->ant);
-
-
+	env = init_env();
+	test(&env);
+	ft_printf("ant = %d, name = %s\n", env.ant, env.room->name);
+	ft_printf("ant = %d, name = %s\n", env.ant, env.room->next->name);
     return (0);
 }

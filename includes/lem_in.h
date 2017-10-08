@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lem_in.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arosset <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/08 16:16:36 by arosset           #+#    #+#             */
+/*   Updated: 2017/10/08 16:16:38 by arosset          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef LEM_IN_H
 # define LEM_IN_H
 
@@ -20,6 +32,12 @@ typedef	struct		s_env
 	struct s_lem	*tunnel;
 }					t_env;
 
+typedef struct		s_parse
+{
+	char			*name;
+	char			*param;
+}					t_parse
 
-// void 	init_env(t_spec *s_env);
+void 	malloc_error();
+
 #endif
