@@ -1,4 +1,11 @@
-105
-salle_1 10 10
-salle_2 10 10
-salle_1 salle_2
+5
+##start
+a 10 10
+b 3 3
+c 4 4
+##end
+d 10 10
+a-b
+a-c
+b-d
+c-d

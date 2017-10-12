@@ -12,20 +12,33 @@
 
 #include "../includes/lem_in.h"
 
-// t_lem	init_list_lem(void)
-// {
-// 	t_lem	*new;
-//
-// 	if (!(new = (t_lem *)malloc(sizeof(t_lem))))
-// 		malloc_error();
-// 	new->name = NULL;
-// 	new->param = NULL;
-// 	new->next = NULL;
-// }
-//
-// void 	init_env(t_env *s_env)
-// {
-// 	s_env->ant = 0;
-// 	s_env->room = init_list_lem();
-// 	s_env->tunnel = init_list_lem();
-// }
+void 	ft_list_init(t_llem *list)
+{
+	list->head = NULL;
+	list->tail = NULL;
+	list->size = 0;
+}
+
+int		ft_list_ins_next(t_llem *list, t_listelem *elem, void *data)
+{
+	t_listelem	*new;
+
+	if (!(new = (t_listelem*)malloc(sizeof(t_listelem))))
+		return (-1);
+	if (elem == NULL)
+	{
+		if (LIST_SIZE(list) == 0)
+			list->tail = new;
+		new->next = list->head;
+		list->head = new;
+	}
+	else
+	{
+		if (elem->next == NULL)
+			list->tail = new;
+		new->next = elem->next
+		elem->next = new;
+	}
+	list->size++;
+	return (0);
+}

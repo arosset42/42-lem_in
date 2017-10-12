@@ -15,6 +15,24 @@
 
 # include "../libft/includes/libft.h"
 
+typedef struct 			s_listelem
+{
+	void 				*data;
+	struct s_listelem	*next;
+}						t_listelem;
+
+typedef	struct			s_llem
+{
+	int					size;
+	struct	s_listelem	*head;
+	struct	s_listelem	*tail;
+}						t_llem
+
+# define LIST_SIZE(list)				((list)->size)
+# define LIST_HEAD(list)				((list)->head)
+# define LIST_TAIL(list)				((list)->tail)
+# define LIST_DATA(elem)				((elem)->data)
+# define LIST_NEXT(elem)				((elem)->next)
 
 typedef	struct		s_lem
 {
@@ -32,11 +50,7 @@ typedef	struct		s_env
 	struct s_lem	*tunnel;
 }					t_env;
 
-typedef struct		s_parse
-{
-	char			*name;
-	char			*param;
-}					t_parse
+
 
 void 	malloc_error();
 
