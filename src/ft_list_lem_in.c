@@ -36,7 +36,7 @@ int		ft_list_ins_next(t_llem *list, t_listelem *elem, void *data)
 	{
 		if (elem->next == NULL)
 			list->tail = new;
-		new->next = elem->next
+		new->next = elem->next;
 		elem->next = new;
 	}
 	list->size++;
