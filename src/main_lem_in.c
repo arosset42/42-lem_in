@@ -14,10 +14,20 @@
 
 int main()
 {
-	t_llem		list;
-	int			nb_ants;
+	t_env			*env;
+	int				nb_ants;
 
-	nb_ants = ft_parse_file(&list);
-	ft_printf("ant = %d\n", nb_ants);
+
+	nb_ants = ft_parse_file(&env);
+
+
+
+	// while (list.head->next)
+	// {
+	// 	ft_printf("%s\n", list.head->data);
+	// 	list.head = list.head->next;
+	// }
+
+
     return (0);
 }

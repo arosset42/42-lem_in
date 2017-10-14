@@ -80,7 +80,7 @@ int				ft_count_char(char *str, char c)
 	return (nbr);
 }
 
-int				ft_check(t_llem *list, char **line)
+int				ft_check(t_list *list, char **line)
 {
 	static int		nbs = 0;
 	static int		nbe = 0;

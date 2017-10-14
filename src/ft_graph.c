@@ -1,20 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*   ft_graph.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arosset <arosset@student.42.fr>            +#+  +:+       +#+        */
+/*   By: arosset <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/14 12:15:28 by arosset           #+#    #+#             */
-/*   Updated: 2016/11/14 15:03:30 by arosset          ###   ########.fr       */
+/*   Created: 2017/10/14 14:06:13 by arosset           #+#    #+#             */
+/*   Updated: 2017/10/14 14:06:15 by arosset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/libft.h"
-
-void	ft_lstiter(t_list *lst, void (*f)(t_list *elem))
-{
-	f(lst);
-	if (lst->next)
-		ft_lstiter(lst->next, f);
-}
+#include "../includes/lem_in.h"

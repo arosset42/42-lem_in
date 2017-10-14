@@ -59,6 +59,7 @@ void		ft_tunnels(t_listelem **tmp, char **line, t_graph *graph)
 				data1 = ft_newpath(ft_strsub(*line, 0, len));
 				data2 = ft_newpath(ft_strsub(*line, len + 1
 							, ft_strlen(*line) - (len + 1)));
+				printf("data = %s data 1 = %s, data 2 = %s len = %d\n",path->data,  data1->data, data2->data, len);
 				if (ft_graph_ins_edge(graph, data1, data2) == 0
 						&& ft_graph_ins_edge(graph, data2, data1) == 0)
 				{
@@ -82,6 +83,7 @@ int			ft_line_tunnels(char **line, t_graph *graph)
 	else if (len == 2)
 		return (1);
 	ft_tunnels(&tmp, line, graph);
+	exit(1);
 	if (tmp == NULL)
 		return (0);
 	return (1);

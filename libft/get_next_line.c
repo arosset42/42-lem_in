@@ -12,105 +12,64 @@
 
 #include "./includes/libft.h"
 
-void	ft_lstdelelem(t_list **tab, t_list *del)
+static char		*ft_read(int const fd, char *str, char *buf)
 {
-	t_list *tmp1;
-	t_list *tmp2;
+	int		len;
+	int		ret;
+	char	*tmp;
 
-	tmp1 = *tab;
-	tmp2 = tmp1;
-	if (tmp2 == del)
-	{
-		*tab = tmp2->next;
-		ft_strdel((&((t_gl*)tmp2->content)->s));
-		ft_memdel(&(tmp2->content));
-		free(tmp2);
-		return ;
-	}
-	while (tmp1->next && tmp1->next != del)
-		tmp1 = tmp1->next;
-	if (!(tmp1->next))
-		return ;
-	tmp2 = tmp1->next;
-	tmp1->next = tmp2->next;
-	free(tmp2->content);
-	free(tmp2);
+	len = ft_strlen(buf) + ft_strlen(str);
+	if (ft_strchr(buf, '\n') == NULL)
+		while ((ret = read(fd, buf, BUFF_SIZE)))
+		{
+			if (ret == -1)
+				return (NULL);
+			buf[ret] = '\0';
+			tmp = ft_strjoin(str, buf);
+			free(str);
+			str = tmp;
+			if (ft_strchr(str, '\n') != NULL)
+				break ;
+		}
+	return (str);
 }
 
-t_list	*isfd(const int fd, t_list **tab)
+static int		ft_return(char **line, char **str, int ret)
 {
-	t_list	*temp;
-	t_gl	*content;
-
-	temp = *tab;
-	while (temp)
+	if (ret == -1)
+		*line = NULL;
+	else if (ret == 0)
 	{
-		if (((t_gl*)(temp->content))->fd == fd)
-			break ;
-		temp = temp->next;
-	}
-	if (!temp)
-	{
-		if (!(content = (t_gl *)malloc(sizeof(t_gl))))
-			return (NULL);
-		temp = ft_lstnew(content, sizeof(t_gl ));
-		free(content);
-		ft_lstadd(tab, temp);
-		((t_gl *)(temp->content))->fd = fd;
-		((t_gl *)(temp->content))->s = ft_strnew(0);
-	}
-	return (temp);
-}
-
-int		splitgnl(char **ln, t_list *tp, char *tm, t_list **tab)
-{
-	t_gl *temp;
-
-	temp = (t_gl *)(tp->content);
-	if (!tm && temp->s[0] == '\0')
-	{
-		ft_lstdelelem(tab, tp);
-		free(tm);
-		return (0);
-	}
-	if (tm)
-	{
-		*ln = ft_strsub(temp->s, 0, tm - temp->s);
-		temp->s = ft_strcpy(temp->s, ++tm);
+		*line = NULL;
+		free(*str);
 	}
 	else
-	{
-		*ln = ft_strdup(temp->s);
-		temp->s = ft_strdup("\0");
-	}
-	return (1);
+		free(*str);
+	return (ret);
 }
 
-int		get_next_line(const int fd, char **line)
+int				get_next_line(int const fd, char **line)
 {
-	static t_list	*tab = NULL;
-	t_list			*tmp;
-	t_vark			v;
-	int				ret;
+	static char		buf[BUFF_SIZE + 1] = {0};
+	char			*str;
 
-	v.tmp = NULL;
-	if (fd < 0 || !line || (read(fd, v.tmp, 0)) == -1 || BUFF_SIZE <= 0)
+	if (line == NULL || fd < 0)
 		return (-1);
-	if (!(v.buff = (char *)malloc(BUFF_SIZE + 1)))
-		return (-1);
-	*line = NULL;
-	ret = 0;
-	tmp = isfd(fd, &tab);
-	v.gnl = (t_gl *)(tmp->content);
-	(v.tmp = ft_strchr((v.gnl)->s, '\n'));
-	while (line && !v.tmp && (ret = read(fd, v.buff, BUFF_SIZE)) > 0)
+	str = ft_strdup(buf);
+	if (!(str = ft_read(fd, str, buf)))
+		return (ft_return(line, &str, -1));
+	if (ft_strlen(str) > 0 && ft_strchr(buf, '\n') == NULL)
 	{
-		v.buff[ret] = '\0';
-		if ((v.tmp = ft_strjoin((v.gnl)->s, v.buff)))
-			((v.gnl)->s) ? free((v.gnl)->s) : NULL;
-		(v.gnl)->s = v.tmp;
-		v.tmp = ft_strchr((v.gnl)->s, '\n');
+		*line = ft_strsub(str, 0, ft_strlen(str));
+		ft_memset(buf, '\0', BUFF_SIZE + 1);
+		return (ft_return(line, &str, 1));
 	}
-	v.buff ? free(v.buff) : NULL;
-	return (ret == (-1) ? -1 : splitgnl(line, tmp, v.tmp, &tab));
+	else if (ft_strchr(buf, '\n') == NULL)
+		return (ft_return(line, &str, 0));
+	else
+	{
+		*line = ft_strsub(str, 0, ft_strchr(str, '\n') - str);
+		ft_strcpy(buf, &buf[ft_strchr(buf, '\n') - buf + 1]);
+	}
+	return (ft_return(line, &str, 1));
 }

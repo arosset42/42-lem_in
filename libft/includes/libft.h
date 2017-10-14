@@ -19,25 +19,10 @@
 # include <stdarg.h>
 # define BIGGER(x, y) ((x > y) ? x : y)
 
-typedef struct		s_gl
-{
-	char			*s;
-	int				fd;
-}					t_gl;
-
-typedef struct		s_vark
-{
-	char			*buff;
-	char			*tmp;
-	t_gl			*gnl;
-}					t_vark;
-
 /*
 **					DEFINE GNL
 */
 # define BUFF_SIZE 32
-# define ECON  		elem->content
-# define ESIZE 		elem->content_size
 
 /*
 **					DEFINE PRINTF
@@ -50,26 +35,6 @@ typedef struct		s_vark
 # define S_PL_SP 	cylva->f_pl_sp
 # define S_STR 		cylva->str
 
-/*
-**					STRUCTURE LIST LIBFT
-*/
-typedef struct		s_list
-{
-	void			*content;
-	size_t			content_size;
-	struct s_list	*next;
-}					t_list;
-
-/*
-**					STRUCTURE LIST GNL
-*/
-typedef struct		s_lgnl
-{
-	void			*content;
-	size_t			content_size;
-	struct s_lgnl	*next;
-	int				fd;
-}					t_gnl;
 /*
 **					STRUCTURE PRINTF
 */
@@ -92,13 +57,6 @@ typedef struct		s_args
 /*
 **					FONCTION GLOBAL
 */
-
-t_list				*ft_lstnew(void const *content, size_t content_size);
-void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
-void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
-void				ft_lstadd(t_list **alst, t_list *new);
-void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
-t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 
 void				ft_putchar(char c);
 void				ft_put_n_char(char c, int n);
