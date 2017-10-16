@@ -80,7 +80,7 @@ int				ft_count_char(char *str, char c)
 	return (nbr);
 }
 
-int				ft_check(t_list *list, char **line)
+int				ft_check(char **line)
 {
 	static int		nbs = 0;
 	static int		nbe = 0;
@@ -88,13 +88,13 @@ int				ft_check(t_list *list, char **line)
 
 	if (ft_strcmp(*line, "##start") == 0)
 	{
-		(value == 1) ? ft_error(NULL, list) : 1;
+		(value == 1) ? ft_error(NULL, NULL) : 1;
 		nbs++;
 		value = 1;
 	}
 	else if (ft_strcmp(*line, "##end") == 0)
 	{
-		(value == 1) ? ft_error(NULL, list) : 1;
+		(value == 1) ? ft_error(NULL, NULL) : 1;
 		nbe++;
 		value = 1;
 	}
@@ -102,7 +102,7 @@ int				ft_check(t_list *list, char **line)
 			&& ft_count_char(*line, ' ') == 2)
 		value = 0;
 	if (nbs > 1 || nbe > 1)
-		ft_error(NULL, list);
+		ft_error(NULL, NULL);
 	if (value == 1 || nbs == 0 || nbe == 0)
 		return (0);
 	return (1);

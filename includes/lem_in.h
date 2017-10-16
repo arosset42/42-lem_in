@@ -21,45 +21,36 @@
 ** Structure et define list parsing
 */
 
-typedef struct	s_listelem
+typedef struct			s_list
 {
-	void				*data;
-	struct s_listelem	*next;
-}				t_listelem;
+	char				*data;
+	struct s_list		*next;
+}						t_list;
 
-typedef struct	s_list
+typedef struct 			s_env
 {
-	int					size;
-	void				(*ft_destroy)(void *data);
-	struct s_listelem	*head;
-	struct s_listelem	*tail;
-}				t_list;
+	int					nb_ants;
+	t_list				*room;
+	t_list				*road;
+	t_list				*init;
+}						t_env;
 
-typedef struct 		s_env
-{
-	int				nb_ants;
-	struct s_list	*init;
-	struct s_list	**rooms;
-	struct s_list	**tunnel;
-}					t_env;
-
-void		ft_list_init(t_list *list, void (*ft_destroy)(void *data));
-void			ft_list_destroy(t_list *list);
-int				ft_list_ins_next(t_list *list, t_listelem *elem, void *data);
-int			ft_list_rem_next(t_list *list, t_listelem *elem, void **data);
+int		ft_addend(char *str, t_list **add);
+int 	ft_check_and_add(t_env *env, char **line);
 
 /*
 **
 */
 
-int		ft_parse_file(t_env *env);
+t_env	*init_env(void);
+void 	ft_error(void *list, void *env);
+
 
 int				ft_comment(char *line);
-int				ft_check(t_list *list, char **line);
+int				ft_check(char **line);
 int				ft_count_char(char *str, char c);
-int		ft_check_int(char *str);
+int				ft_check_int(char *str);
 
-void 	malloc_error();
-void	ft_error(void *graph, void *list);
+void 			malloc_error();
 
 #endif

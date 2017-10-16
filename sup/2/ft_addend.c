@@ -12,10 +12,10 @@
 
 #include "includes/lemin.h"
 
-int		ft_addend(char *str, t_parse **add)
+int		ft_addend(char *str, t_list **add)
 {
-	t_parse *new;
-	t_parse *tmp;
+	t_list *new;
+	t_list *tmp;
 
 	if (!(new = malloc(sizeof(t_parse))))
 		return (0);

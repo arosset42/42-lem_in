@@ -19,13 +19,12 @@
 **			 presence de signe autre que des chiffres
 */
 
-int		ft_line_ant(t_list *list, char **line, int fd, int *nb_ants)
+int		ft_line_ant(char **line, int fd, int *nb_ants)
 {
 	int		val;
 
 	while (get_next_line(fd, line) > 0)
 	{
-		ft_list_ins_next(list, list->tail, *line);
 		if ((val = ft_comment(*line)) < 2)
 			ft_error(NULL, list);
 		else if (val == 3 && (*nb_ants = ft_check_int(*line)) > 0)
@@ -66,25 +65,24 @@ int		ft_line_tunnels(char **line)
 	return (0);
 }
 
-int		ft_parse_file(t_env *env)
+int		ft_parse_file(t_list *list)
 {
 	char	*line;
 	int		nb_ants;
 	int		val;
 
 	val = 0;
-	ft_list_init(env->init, free);
-	ft_line_ant(env->init, &line, 0, &nb_ants);
+	ft_line_ant(list, &line, 0, &nb_ants);
 	while (ft_line_rooms(&line))
 	{
-		val = ft_check(env->init, &line);
-		ft_list_ins_next(env->init, env->init->tail, line);
-		(get_next_line(0, &line) < 1) ? ft_error(NULL, env->init) : 0;
+		val = ft_check(list, &line);
+		ft_addend(line, &list);
+		(get_next_line(0, &line) < 1) ? ft_error(NULL, list) : 0;
 	}
-	(val == 0) ? ft_error(NULL, env->init) : 0;
+	(val == 0) ? ft_error(NULL, list) : 0;
 	while (ft_line_tunnels(&line))
 	{
-		ft_list_ins_next(env->init, env->init->tail, line);
+		ft_addend(*line, &list);
 		if (get_next_line(0, &line) < 1)
 			break ;
 	}

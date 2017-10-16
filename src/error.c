@@ -12,13 +12,9 @@
 
 #include "../includes/lem_in.h"
 
-void	ft_error(void *graph, void *list)
+void 	ft_error(void *list, void *env)
 {
-	ft_putstr_fd("ERROR\n", 2);
-	// if (graph != NULL)
-	// 	ft_graph_destroy(graph);
-	// if (list != NULL)
-	// 	ft_list_destroy(list);
+	ft_printf("Error\n");
 	exit(1);
 }
 
