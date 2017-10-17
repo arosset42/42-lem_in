@@ -19,24 +19,26 @@
 **			 presence de signe autre que des chiffres
 */
 
-int		ft_line_ant(char **line, int fd, int *nb_ants)
+int		ft_line_ant(t_env *env, char **line, int fd)
 {
 	int		val;
+	int		ret;
 
-	while (get_next_line(fd, line) > 0)
+	while ((ret = get_next_line(fd, line)) > 0)
 	{
+		ft_addend(*line, &env->init);
 		if ((val = ft_comment(*line)) < 2)
-			ft_error(NULL, list);
-		else if (val == 3 && (*nb_ants = ft_check_int(*line)) > 0)
+			ft_error(NULL, NULL);
+		else if (val == 3 && (env->nb_ants = ft_check_int(*line)) > 0)
 		{
 			if (get_next_line(fd, line) < 1)
-				ft_error(NULL, list);
+				ft_error(NULL, NULL);
 			return (1);
 		}
-		else if (nb_ants <= 0)
-			ft_error(NULL, list);
+		else if (env->nb_ants <= 0)
+			ft_error(NULL, NULL);
 	}
-	ft_error(NULL, list);
+	ft_error(NULL, NULL);
 	return (-1);
 }
 
@@ -52,39 +54,70 @@ int		ft_line_rooms(char **line)
 	return (1);
 }
 
-int		ft_line_tunnels(char **line)
+void 	ft_road(char **line, t_env *env, t_list *tmp)
+{
+	int		len;
+	char	*src;
+	char	*dst;
+
+	while (tmp)
+	{
+		len = ft_strlen(tmp->data);
+		if (ft_strncmp(*line, tmp->data, len)== 0)
+		{
+			if (line[0][len] == '-')
+			{
+				src = ft_strsub(*line, 0, len);
+				dst = ft_strsub(*line, len + 1, ft_strlen(*line) - (len + 1));
+			}
+			if (ft_check_name_road(env, src, dst))
+			{
+				free(src);
+				free(dst);
+				break ;
+			}
+		}
+		tmp = tmp->next;
+	}
+}
+
+int		ft_line_road(char **line, t_env *env)
 {
 	int		val;
+	t_list	*tmp;
 
+	tmp = env->room;
 	if ((val = ft_comment(*line)) < 2)
 		return (0);
 	else if (val == 2)
 		return (1);
-	else
-		return (1);
-	return (0);
+	ft_road(line, env, tmp);
+	return (1);
 }
 
-int		ft_parse_file(t_list *list)
+t_env 	*ft_parse_file(void)
 {
-	char	*line;
-	int		nb_ants;
+	t_env	*env;
 	int		val;
+	char	*line;
 
+	env = init_env();
 	val = 0;
-	ft_line_ant(list, &line, 0, &nb_ants);
+	ft_line_ant(env, &line, 0);
 	while (ft_line_rooms(&line))
 	{
-		val = ft_check(list, &line);
-		ft_addend(line, &list);
-		(get_next_line(0, &line) < 1) ? ft_error(NULL, list) : 0;
+		val = ft_check(&line);
+		if (ft_check_and_add(env, &line) == 1)
+			break ;
+		ft_addend(line, &env->init);
+		(get_next_line(0, &line) < 1) ? ft_error(NULL, NULL) : 0;
 	}
-	(val == 0) ? ft_error(NULL, list) : 0;
-	while (ft_line_tunnels(&line))
+	(val == 0) ? ft_error(NULL, NULL) : 0;
+	while (ft_line_road(&line, env))
 	{
-		ft_addend(*line, &list);
+		ft_addend(line, &env->init);
 		if (get_next_line(0, &line) < 1)
 			break ;
 	}
-	return (nb_ants);
+	return (env);
 }

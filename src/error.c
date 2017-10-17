@@ -12,6 +12,19 @@
 
 #include "../includes/lem_in.h"
 
+void 	ft_free_tab(char **tab)
+{
+	int		i;
+
+	i = 0;
+	while (tab[i])
+	{
+		free (tab[i]);
+		i++;
+	}
+	free (tab);
+}
+
 void 	ft_error(void *list, void *env)
 {
 	ft_printf("Error\n");

@@ -21,6 +21,13 @@
 ** Structure et define list parsing
 */
 
+typedef	struct			s_road
+{
+	char				*src;
+	char				*dest;
+	struct s_road		*next;
+}						t_road;
+
 typedef struct			s_list
 {
 	char				*data;
@@ -31,12 +38,20 @@ typedef struct 			s_env
 {
 	int					nb_ants;
 	t_list				*room;
-	t_list				*road;
+	t_road				*road;
 	t_list				*init;
+	char				*start;
+	char				*end;
 }						t_env;
 
 int		ft_addend(char *str, t_list **add);
+int		ft_addroad(char *src, char *dest, t_road **add);
 int 	ft_check_and_add(t_env *env, char **line);
+int		ft_check_name_road(t_env *env, char *src, char *dst);
+
+t_env 	*ft_parse_file(void);
+
+int   ft_search_room(t_env *env, char *s);
 
 /*
 **
@@ -44,6 +59,7 @@ int 	ft_check_and_add(t_env *env, char **line);
 
 t_env	*init_env(void);
 void 	ft_error(void *list, void *env);
+void 	ft_free_tab(char **tab);
 
 
 int				ft_comment(char *line);

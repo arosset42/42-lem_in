@@ -1,0 +1,69 @@
+[31m
+=== TEST ERROR  1: [00m
+
+ERROR
+[31m
+=== TEST ERROR  2: [00m
+
+ERROR
+[31m
+=== TEST ERROR  3: [00m
+
+ERROR
+[31m
+=== TEST ERROR  4: [00m
+
+ERROR
+[31m
+=== TEST ERROR  5: [00m
+
+ERROR
+[31m
+=== TEST ERROR  6: [00m
+
+ERROR
+[31m
+=== TEST ERROR  7: [00m
+
+ERROR
+[31m
+=== TEST ERROR  8: [00m
+
+ERROR
+[31m
+=== TEST ERROR  9: [00m
+
+ERROR
+[31m
+=== TEST ERROR  10: [00m
+
+ERROR
+[31m
+=== TEST ERROR  11: [00m
+
+ERROR
+[31m
+=== TEST ERROR  12: [00m
+
+ERROR
+Test OK 1: [00m
+
+[33m5
+[0m[32m##start
+[0m[33ma 10 10
+[0m[33mb 3 3
+[0m[33mc 4 4
+[0m[32m##end
+[0m[33md 10 10
+[0m[34ma-b
+[0m[34ma-c
+[0m[34mb-d
+[0m[34mc-d
+[0m
+[38;5;101mL1-b[0m 
+[38;5;101mL1-d[0m [38;5;102mL2-b[0m 
+[38;5;102mL2-d[0m [38;5;103mL3-b[0m 
+[38;5;103mL3-d[0m [38;5;104mL4-b[0m 
+[38;5;104mL4-d[0m [38;5;105mL5-b[0m 
+[38;5;105mL5-d[0m 
+Les fourmis ont parcouru 3 salles.

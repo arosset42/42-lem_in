@@ -9,7 +9,7 @@
 #    Updated: 2017/06/23 14:08:17 by arosset          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-NAME			= 	lem_in
+NAME			= 	lem-in
 
 CC				=	gcc
 FLAGS			=	-Wall -Wextra -Werror
@@ -20,7 +20,8 @@ LIB_LINK		=	./libft/libft.a
 
 INC_PATH		= 	./includes
 SRC_PATH		=	./src
-SRC_NAME 		= 	main_lem_in.c error.c  ft_list_lem_in.c ft_utility.c init.c
+SRC_NAME 		= 	main_lem_in.c error.c  ft_list_lem_in.c parser.c \
+					ft_utility.c init.c ft_check.c
 OBJ_PATH		=	./obj
 
 OBJ_NAME		=	$(SRC_NAME:.c=.o)
