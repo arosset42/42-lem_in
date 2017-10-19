@@ -6,7 +6,7 @@
 /*   By: arosset <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/11 15:46:34 by arosset           #+#    #+#             */
-/*   Updated: 2017/09/11 15:46:36 by arosset          ###   ########.fr       */
+/*   Updated: 2017/10/19 14:34:41 by arosset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		ft_check_int(char *str)
 	return (total * neg);
 }
 
-int				ft_comment(char *line)
+int		ft_comment(char *line)
 {
 	if (ft_strcmp(line, "##end") == 0)
 		return (0);
@@ -62,7 +62,7 @@ int				ft_comment(char *line)
 		return (3);
 }
 
-int				ft_count_char(char *str, char c)
+int		ft_count_char(char *str, char c)
 {
 	int		nbr;
 	int		index;
@@ -80,7 +80,7 @@ int				ft_count_char(char *str, char c)
 	return (nbr);
 }
 
-int				ft_check(char **line)
+int		ft_check(char **line)
 {
 	static int		nbs = 0;
 	static int		nbe = 0;

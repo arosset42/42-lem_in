@@ -6,7 +6,7 @@
 /*   By: arosset <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/17 15:43:54 by arosset           #+#    #+#             */
-/*   Updated: 2017/10/17 15:43:55 by arosset          ###   ########.fr       */
+/*   Updated: 2017/10/19 14:31:19 by arosset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		ft_check_name_road(t_env *env, char *src, char *dst)
 	return (1);
 }
 
-void 	ft_set_start_end(char *s, char *str, t_env *env)
+void	ft_set_start_end(char *s, char *str, t_env *env)
 {
 	if (ft_strcmp(s, "##start") == 0)
 		env->start = ft_strsub(str, 0, ft_strlen(str));
@@ -43,35 +43,7 @@ void 	ft_set_start_end(char *s, char *str, t_env *env)
 		env->end = ft_strsub(str, 0, ft_strlen(str));
 }
 
-int   ft_search_room(t_env *env, char *s)
-{
-	t_list	*tmp;
-	char	*str;
-
-	tmp = env->init;
-	while (tmp)
-	{
-		if (ft_strcmp(s, tmp->data) == 0)
-		{
-			while (tmp)
-			{
-				str = tmp->data;
-				if (str[0] != '#')
-				{
-					str = ft_strsub(str, 0, ft_strchr(str, ' ') - str);
-					ft_set_start_end(s, str, env);
-					free (str);
-					return (1);
-				}
-				tmp = tmp->next;
-			}
-		}
-		tmp = tmp->next;
-	}
-	return (0);
-}
-
-void 	ft_check_name(char *s, t_env *env)
+void	ft_check_name(char *s, t_env *env)
 {
 	t_list	*room;
 
@@ -87,7 +59,7 @@ void 	ft_check_name(char *s, t_env *env)
 	}
 }
 
-int 	ft_check_and_add(t_env *env, char **line)
+int		ft_check_and_add(t_env *env, char **line)
 {
 	char	**data;
 	int		i;

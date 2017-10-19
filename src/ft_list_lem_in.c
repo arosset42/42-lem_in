@@ -44,6 +44,7 @@ int		ft_addroad(char *src, char *dest, t_road **add)
 		return (0);
 	new->src = ft_strdup(src);
 	new->dest = ft_strdup(dest);
+	new->use = 0;
 	new->next = NULL;
 	tmp = *add;
 	if (!tmp)

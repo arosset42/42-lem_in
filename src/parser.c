@@ -6,7 +6,7 @@
 /*   By: arosset <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/11 15:13:26 by arosset           #+#    #+#             */
-/*   Updated: 2017/09/11 15:13:28 by arosset          ###   ########.fr       */
+/*   Updated: 2017/10/19 14:35:29 by arosset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int		ft_line_rooms(char **line)
 	return (1);
 }
 
-void 	ft_road(char **line, t_env *env, t_list *tmp)
+void	ft_road(char **line, t_env *env, t_list *tmp)
 {
 	int		len;
 	char	*src;
@@ -64,7 +64,7 @@ void 	ft_road(char **line, t_env *env, t_list *tmp)
 	while (tmp)
 	{
 		len = ft_strlen(tmp->data);
-		if (ft_strncmp(*line, tmp->data, len)== 0)
+		if (ft_strncmp(*line, tmp->data, len) == 0)
 		{
 			if (line[0][len] == '-')
 			{
@@ -96,7 +96,7 @@ int		ft_line_road(char **line, t_env *env)
 	return (1);
 }
 
-t_env 	*ft_parse_file(void)
+t_env	*ft_parse_file(void)
 {
 	t_env	*env;
 	int		val;

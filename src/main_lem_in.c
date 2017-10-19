@@ -44,9 +44,11 @@ int 	main()
 	env = ft_parse_file();
 	if (!ft_search_room(env, "##start") || !ft_search_room(env, "##end"))
 		ft_error(env);
-	// ft_print_env(*env);
+	ft_print_env(*env);
 	ft_printf("\nPARSER OK\n");
-	ft_free_env(env);
+	ft_start_graph(env);
+
+	// ft_free_env(env);
 	// while (1);
     return (0);
 }
