@@ -18,9 +18,9 @@ int		check_nbr(char c, int total, int sign)
 
 	tmp = total * 10;
 	if (sign == 1 && c - '0' > INT_MAX - tmp)
-		ft_error(NULL, NULL);
+		ft_error(NULL);
 	if (sign == -1 && -(c - '0') < INT_MIN + tmp)
-		ft_error(NULL, NULL);
+		ft_error(NULL);
 	return (0);
 }
 
@@ -44,7 +44,7 @@ int		ft_check_int(char *str)
 		i++;
 	}
 	if (str[i] != 0)
-		ft_error(NULL, NULL);
+		ft_error(NULL);
 	return (total * neg);
 }
 
@@ -88,13 +88,13 @@ int				ft_check(char **line)
 
 	if (ft_strcmp(*line, "##start") == 0)
 	{
-		(value == 1) ? ft_error(NULL, NULL) : 1;
+		(value == 1) ? ft_error(NULL) : 1;
 		nbs++;
 		value = 1;
 	}
 	else if (ft_strcmp(*line, "##end") == 0)
 	{
-		(value == 1) ? ft_error(NULL, NULL) : 1;
+		(value == 1) ? ft_error(NULL) : 1;
 		nbe++;
 		value = 1;
 	}
@@ -102,7 +102,7 @@ int				ft_check(char **line)
 			&& ft_count_char(*line, ' ') == 2)
 		value = 0;
 	if (nbs > 1 || nbe > 1)
-		ft_error(NULL, NULL);
+		ft_error(NULL);
 	if (value == 1 || nbs == 0 || nbe == 0)
 		return (0);
 	return (1);

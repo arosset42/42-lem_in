@@ -58,9 +58,12 @@ int   ft_search_room(t_env *env, char *s);
 */
 
 t_env	*init_env(void);
-void 	ft_error(void *list, void *env);
-void 	ft_free_tab(char **tab);
 
+void 	ft_error(t_env *env);
+void 	ft_free_tab(char **tab);
+void 	ft_free_list(t_list **list);
+void 	ft_free_road(t_road **road);
+void 	ft_free_env(t_env *env);
 
 int				ft_comment(char *line);
 int				ft_check(char **line);

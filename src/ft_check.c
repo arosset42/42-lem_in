@@ -81,7 +81,7 @@ void 	ft_check_name(char *s, t_env *env)
 		while (room)
 		{
 			if (ft_strcmp(s, room->data) == 0)
-				ft_error(NULL, NULL);
+				ft_error(env);
 			room = room->next;
 		}
 	}
@@ -97,7 +97,7 @@ int 	ft_check_and_add(t_env *env, char **line)
 	{
 		data = ft_strsplit(*line, ' ');
 		if (data[0][0] == 'L')
-			ft_error(NULL, NULL);
+			ft_error(env);
 		while (data[i] != NULL)
 			i++;
 		if (i != 3)

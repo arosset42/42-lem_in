@@ -12,7 +12,7 @@
 NAME			= 	lem-in
 
 CC				=	gcc
-FLAGS			=	-Wall -Wextra -Werror
+FLAGS			=	-Wall -Wextra -Werror -g
 
 LIB_PATH		= 	./libft/
 LIB				=	./libft/libft.a

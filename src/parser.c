@@ -28,17 +28,18 @@ int		ft_line_ant(t_env *env, char **line, int fd)
 	{
 		ft_addend(*line, &env->init);
 		if ((val = ft_comment(*line)) < 2)
-			ft_error(NULL, NULL);
+			ft_error(env);
 		else if (val == 3 && (env->nb_ants = ft_check_int(*line)) > 0)
 		{
 			if (get_next_line(fd, line) < 1)
-				ft_error(NULL, NULL);
+				ft_error(env);
 			return (1);
 		}
 		else if (env->nb_ants <= 0)
-			ft_error(NULL, NULL);
+			ft_error(env);
+		ft_strdel(line);
 	}
-	ft_error(NULL, NULL);
+	ft_error(env);
 	return (-1);
 }
 
@@ -110,9 +111,9 @@ t_env 	*ft_parse_file(void)
 		if (ft_check_and_add(env, &line) == 1)
 			break ;
 		ft_addend(line, &env->init);
-		(get_next_line(0, &line) < 1) ? ft_error(NULL, NULL) : 0;
+		(get_next_line(0, &line) < 1) ? ft_error(env) : 0;
 	}
-	(val == 0) ? ft_error(NULL, NULL) : 0;
+	(val == 0) ? ft_error(env) : 0;
 	while (ft_line_road(&line, env))
 	{
 		ft_addend(line, &env->init);
