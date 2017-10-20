@@ -34,6 +34,12 @@ typedef struct			s_graph // s_llist
 	struct s_graph		*next;
 }						t_graph;
 
+typedef	struct			s_end
+{
+	char				*str;
+	int					level;
+	struct s_end		*next;
+}						t_end;
 /*
 ** Structure list parsing
 */
@@ -43,6 +49,7 @@ typedef	struct			s_road
 	char				*src;
 	char				*dest;
 	int					use;
+	char				*line;
 	struct s_road		*next;
 }						t_road;
 
@@ -56,7 +63,7 @@ typedef struct			s_list
 ** Structure environement
 */
 
-typedef struct 			s_env
+typedef struct 			s_envf
 {
 	int					nb_ants;
 	t_list				*room;
@@ -65,10 +72,14 @@ typedef struct 			s_env
 	t_graph				*graph;
 	char				*start;
 	char				*end;
+	t_list				*finish;
 
 	t_list				*file;
 }						t_env;
 
+t_list			*ft_searchlittleroad(t_env *stok, t_road *road);
+int		ft_addroadend(char *str, int level, t_end **add);
+int		ft_checklevel(t_graph *tree, char *str, int i, t_end **road);
 /*
 **	Fonction list
 */
@@ -96,10 +107,14 @@ t_env 					*ft_parse_file(void);
 /*
 **	Fonction search
 */
+char		*ft_firstroominroad(char *str);
 
-int		ft_search_in_list(char *str, t_list *list);
-char					*ft_search_child(char *str, t_env *env);
-char					*ft_search_brother(char *str, char *father, t_env *env);
+char		*ft_searchchild(char *str, t_env *stok);
+char		*ft_searchbrother(char *str, char *father, t_env *stok);
+char		*ft_searchroominroad(char *str);
+int			ft_searchinlist(char *str, t_list *file);
+int			ft_searchinroom(t_list *room, char *str);
+
 int   					ft_search_room(t_env *env, char *s);
 int						ft_search_road(t_env *env, t_road *road);
 void 					ft_set_start_end(char *s, char *str, t_env *env);
@@ -108,8 +123,9 @@ void 					ft_set_start_end(char *s, char *str, t_env *env);
 ** Fonction create Graph
 */
 
-t_tree					*ft_create_tree(char *str, t_env *env);
-t_graph					*ft_create_graph(char *str, char *father, t_env *env);
+t_graph		*ft_createlist(char *str, char *father, t_env *stock);
+t_tree		*ft_createtree(char *str, t_env *stok);
+
 void 					ft_start_graph(t_env *env);
 
 /*

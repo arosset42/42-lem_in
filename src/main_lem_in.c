@@ -30,7 +30,7 @@ void 	ft_print_env(t_env env)
 	ft_printf("==== LIST ROAD ====\n");
 	while (env.road)
 	{
-		ft_printf("src = %s dest = %s\n", env.road->src, env.road->dest);
+		ft_printf("src = %s dest = %s line = %s\n", env.road->src, env.road->dest, env.road->line);
 		env.road = env.road->next;
 	}
 	ft_printf("start = %s, end = %s\n", env.start, env.end);
@@ -39,7 +39,7 @@ void 	ft_print_env(t_env env)
 int 	main()
 {
 	t_env		*env;
-
+	t_end		*road;
 
 	env = ft_parse_file();
 	if (!ft_search_room(env, "##start") || !ft_search_room(env, "##end"))
@@ -47,6 +47,9 @@ int 	main()
 	ft_print_env(*env);
 	ft_printf("\nPARSER OK\n");
 	ft_start_graph(env);
+	ft_printf("\nGRAPH OK\n");
+	ft_checklevel(env->graph, env->end, 0, &road);
+	// env->end = ft_searchlittleroad(env, env->end);
 
 	// ft_free_env(env);
 	// while (1);

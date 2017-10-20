@@ -12,6 +12,28 @@
 
 #include "../includes/lem_in.h"
 
+int		ft_searchlevel(t_road *road, char *str)
+{
+	while (road)
+	{
+		if (!ft_strcmp(str, road->str))
+			return (road->level);
+		road = road->next;
+	}
+	return (2147483647);
+}
+
+int		ft_search_in_room(char *str, t_list *room)
+{
+	while (room)
+	{
+		if (!ft_strcmp(room->data, str))
+			return (1);
+		room = room->next;
+	}
+	return (0);
+}
+
 int		ft_search_in_list(char *str, t_list *list)
 {
 	while (list)

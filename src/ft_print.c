@@ -14,10 +14,5 @@
 
 void 	ft_print_graph(t_graph *graph)
 {
-	ft_printf("Start Print\n");
-	while (graph)
-	{
-		ft_printf("%s ", graph->node->data);
-		graph = graph->next;
-	}
+
 }
