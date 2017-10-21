@@ -52,15 +52,12 @@ void		ft_tunnels(t_listelem **tmp, char **line, t_graph *graph)
 	while (*tmp != NULL)
 	{
 		path = (t_path*)((t_adjlist*)LIST_DATA(*tmp))->vertex;
-		printf("path data= %s\n", path->data);
 		len = ft_strlen(LIST_DATA(path));
-		printf("len = %d\n", len);
 		if (ft_strncmp(*line, LIST_DATA(path), len) == 0)
 			if (line[0][len] == '-')
 			{
 				data1 = ft_newpath(ft_strsub(*line, 0, len));
 				data2 = ft_newpath(ft_strsub(*line, len + 1 , ft_strlen(*line) - (len + 1)));
-				printf("data = %s data 1 = %s, data 2 = %s len = %d\n",path->data,  data1->data, data2->data, len);
 				if (ft_graph_ins_edge(graph, data1, data2) == 0
 						&& ft_graph_ins_edge(graph, data2, data1) == 0)
 				{

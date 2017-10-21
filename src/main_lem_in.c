@@ -37,5 +37,6 @@ int		main(void)
 		ft_freeroad(&road);
 		ft_error(env);
 	}
+	// while (1);
 	return (0);
 }

@@ -12,14 +12,14 @@
 
 #include "includes/lemin.h"
 
-void	ft_displayroad(t_road *road)
-{
-	while (road)
-	{
-		ft_putstr(road->str);
-		ft_putchar(' ');
-		ft_putnbr(road->level);
-		ft_putchar('\n');
-		road = road->next;
-	}
-}
+// void	ft_displayroad(t_road *road)
+// {
+// 	while (road)
+// 	{
+// 		ft_putstr(road->str);
+// 		ft_putchar(' ');
+// 		ft_putnbr(road->level);
+// 		ft_putchar('\n');
+// 		road = road->next;
+// 	}
+// }

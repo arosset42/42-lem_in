@@ -40,7 +40,7 @@ int		ft_search_room(t_env *env, char *s)
 				{
 					str = ft_strsub(str, 0, ft_strchr(str, ' ') - str);
 					ft_set_start_end(s, str, env);
-					free(str);
+					ft_strdel(&str);
 					return (1);
 				}
 				tmp = tmp->next;
@@ -48,5 +48,6 @@ int		ft_search_room(t_env *env, char *s)
 		}
 		tmp = tmp->next;
 	}
+	ft_free_list(&tmp);
 	return (0);
 }

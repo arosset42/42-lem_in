@@ -21,5 +21,6 @@ void	ft_error(t_env *env)
 
 void	malloc_error(void)
 {
+	ft_printf("Error\n");
 	exit(1);
 }

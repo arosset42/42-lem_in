@@ -1,10 +1,10 @@
 5
 a 10 10
 ##start
-b 3 3
+start 3 3
 c 4 4
 ##end
-d 10 10
-a-d
-c-b
-b-a
+end 10 10
+a-end
+c-start
+c-a
