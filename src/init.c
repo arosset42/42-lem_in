@@ -6,7 +6,7 @@
 /*   By: arosset <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/16 10:14:38 by arosset           #+#    #+#             */
-/*   Updated: 2017/10/16 10:14:39 by arosset          ###   ########.fr       */
+/*   Updated: 2017/10/21 16:14:13 by arosset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ t_env	*init_env(void)
 	env->room = NULL;
 	env->road = NULL;
 	env->init = NULL;
+	env->file = NULL;
 	env->start = NULL;
 	env->end = NULL;
 	env->graph = NULL;
-	env->file = NULL;
 	return (env);
 }

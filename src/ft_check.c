@@ -14,23 +14,23 @@
 
 int		ft_name_road(t_env *env, char *s)
 {
-	t_list *room;
+	t_parse *room;
 
 	room = env->room;
 	while (room)
 	{
-		if (ft_strcmp(s, room->data) == 0)
+		if (ft_strcmp(s, room->str) == 0)
 			return (1);
 		room = room->next;
 	}
 	return (0);
 }
 
-int		ft_check_name_road(t_env *env, char *src, char *dst)
+int		ft_check_name_road(t_env *env, char *src, char *dst, char *line)
 {
 	if (ft_name_road(env, src) == 0 || ft_name_road(env, dst) == 0)
 		return (0);
-	if (!ft_addroad(src, dst, &env->road))
+	if (!ft_addend(line, &env->road))
 		return (0);
 	return (1);
 }
@@ -45,14 +45,14 @@ void	ft_set_start_end(char *s, char *str, t_env *env)
 
 void	ft_check_name(char *s, t_env *env)
 {
-	t_list	*room;
+	t_parse	*room;
 
 	if (env->room)
 	{
 		room = env->room;
 		while (room)
 		{
-			if (ft_strcmp(s, room->data) == 0)
+			if (ft_strcmp(s, room->str) == 0)
 				ft_error(env);
 			room = room->next;
 		}

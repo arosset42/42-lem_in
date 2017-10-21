@@ -60,22 +60,22 @@ char	*ft_searchroominroad(char *str)
 	return (seconderoom);
 }
 
-int		ft_searchinlist(char *str, t_list *file)
+int		ft_searchinlist(char *str, t_parse *file)
 {
 	while (file)
 	{
-		if (!ft_strcmp(str, file->data))
+		if (!ft_strcmp(str, file->str))
 			return (0);
 		file = file->next;
 	}
 	return (1);
 }
 
-int		ft_searchinroom(t_list *room, char *str)
+int		ft_searchinroom(t_parse *room, char *str)
 {
 	while (room)
 	{
-		if (!ft_strcmp(room->data, str))
+		if (!ft_strcmp(room->str, str))
 			return (1);
 		room = room->next;
 	}

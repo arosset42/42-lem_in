@@ -6,24 +6,24 @@
 /*   By: arosset <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/14 14:06:13 by arosset           #+#    #+#             */
-/*   Updated: 2017/10/19 14:32:57 by arosset          ###   ########.fr       */
+/*   Updated: 2017/10/21 16:12:38 by arosset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 
-char			*ft_searchbrother(char *str, char *father, t_env *stok)
+char	*ft_searchbrother(char *str, char *father, t_env *stok)
 {
 	char	*one;
 	char	*seconde;
-	t_road *tmp;
+	t_parse *tmp;
 
 	seconde = NULL;
 	tmp = stok->road;
 	while (stok->road)
 	{
-		one = ft_firstroominroad(stok->road->line);
-		seconde = ft_searchroominroad(stok->road->line);
+		one = ft_firstroominroad(stok->road->str);
+		seconde = ft_searchroominroad(stok->road->str);
 		if ((!ft_strcmp(one, father) && !ft_strcmp(seconde, str)) ||
 				(!ft_strcmp(one, str) && !ft_strcmp(seconde, father)))
 		{
@@ -41,8 +41,7 @@ char			*ft_searchbrother(char *str, char *father, t_env *stok)
 	return (seconde);
 }
 
-
-static char	*ft_returnchild(char *one, char *str, t_env *stok, int i)
+char	*ft_returnchild(char *one, char *str, t_env *stok, int i)
 {
 	char *seconde;
 
@@ -62,26 +61,26 @@ static char	*ft_returnchild(char *one, char *str, t_env *stok, int i)
 	return (NULL);
 }
 
-char		*ft_searchchild(char *str, t_env *stok)
+char	*ft_searchchild(char *str, t_env *stok)
 {
 	char	*one;
-	t_road	*tmp;
+	t_parse	*tmp;
 
 	tmp = stok->road;
 	while (tmp)
 	{
-		one = ft_firstroominroad(tmp->line);
+		one = ft_firstroominroad(tmp->str);
 		if (!ft_strcmp(one, str))
 		{
-			if ((one = ft_returnchild(one, tmp->line, stok, 0)))
+			if ((one = ft_returnchild(one, tmp->str, stok, 0)))
 				return (one);
 		}
 		else
 			free(one);
-		one = ft_searchroominroad(tmp->line);
+		one = ft_searchroominroad(tmp->str);
 		if (!ft_strcmp(one, str))
 		{
-			if ((one = ft_returnchild(one, tmp->line, stok, 1)))
+			if ((one = ft_returnchild(one, tmp->str, stok, 1)))
 				return (one);
 		}
 		else
@@ -100,9 +99,9 @@ t_tree	*ft_createtree(char *str, t_env *stok)
 	if (!(tree = malloc(sizeof(t_tree))))
 		return (NULL);
 	name = ft_strdup(str);
-	tree->data = name;
+	tree->str = name;
 	ft_addend(name, &stok->file);
-	tree->lvl = 2147483647;
+	tree->level = 2147483647;
 	tmp = ft_searchchild(name, stok);
 	if (!ft_strcmp(name, stok->end))
 		tree->child = NULL;
@@ -116,12 +115,12 @@ t_tree	*ft_createtree(char *str, t_env *stok)
 	return (tree);
 }
 
-t_graph		*ft_createlist(char *str, char *father, t_env *stok)
+t_llist	*ft_createlist(char *str, char *father, t_env *stok)
 {
-	t_graph		*tree;
+	t_llist		*tree;
 	char		*tmp;
 
-	if (!(tree = malloc(sizeof(t_list))))
+	if (!(tree = malloc(sizeof(t_llist))))
 		return (NULL);
 	if (!father)
 	{
@@ -139,13 +138,4 @@ t_graph		*ft_createlist(char *str, char *father, t_env *stok)
 	if (tmp)
 		free(tmp);
 	return (tree);
-}
-
-void	ft_start_graph(t_env *env)
-{
-	// ft_printf("start graph\n");
-	env->graph = ft_createlist(env->start, NULL, env);
-
-	// ft_printf("end graph\n");
-	// ft_print_graph(env->graph);
 }

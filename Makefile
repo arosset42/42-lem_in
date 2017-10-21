@@ -21,8 +21,9 @@ LIB_LINK		=	./libft/libft.a
 INC_PATH		= 	./includes
 SRC_PATH		=	./src
 SRC_NAME 		= 	main_lem_in.c error.c  ft_list_lem_in.c parser.c \
-					ft_utility.c init.c ft_check.c ft_graph.c ft_search.c\
-					ft_free.c ft_print.c ft_search_list.c ft_algo.c
+					ft_utility.c init.c ft_check.c ft_search.c\
+					ft_free.c ft_graph.c ft_search_list.c ft_algo.c\
+					ft_print.c ft_print_ant.c 
 OBJ_PATH		=	./obj
 
 OBJ_NAME		=	$(SRC_NAME:.c=.o)

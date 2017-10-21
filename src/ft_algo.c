@@ -6,16 +6,16 @@
 /*   By: arosset <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:09:11 by arosset           #+#    #+#             */
-/*   Updated: 2017/10/20 11:09:13 by arosset          ###   ########.fr       */
+/*   Updated: 2017/10/21 16:11:04 by arosset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 
-int		ft_checklevel(t_graph *tree, char *str, int i, t_end **road)
+int		ft_checklevel(t_llist *tree, char *str, int i, t_road **road)
 {
-	tree->node->lvl = i;
-	ft_addroadend(tree->node->data, i, road);
+	tree->node->level = i;
+	ft_addroad(tree->node->str, i, road);
 	if (tree->next)
 		ft_checklevel(tree->next, str, i, road);
 	if (tree->node->child)
@@ -23,29 +23,29 @@ int		ft_checklevel(t_graph *tree, char *str, int i, t_end **road)
 	return (1);
 }
 
-static char		*thebestroom(t_list *lst, t_road *road)
+char	*thebestroom(t_parse *lst, t_road *road)
 {
 	char *tmp;
 
 	if (!lst)
 		return (NULL);
 	if (!(lst->next))
-		return (ft_strdup(lst->data));
-	tmp = ft_strdup(lst->data);
+		return (ft_strdup(lst->str));
+	tmp = ft_strdup(lst->str);
 	lst = lst->next;
 	while (lst)
 	{
-		if (ft_searchlevel(road, tmp) > ft_searchlevel(road, lst->data))
+		if (ft_searchlevel(road, tmp) > ft_searchlevel(road, lst->str))
 		{
 			free(tmp);
-			tmp = ft_strdup(lst->data);
+			tmp = ft_strdup(lst->str);
 		}
 		lst = lst->next;
 	}
 	return (tmp);
 }
 
-static	void	ft_cuproom(char *str, t_list **lst, int i)
+void	ft_cuproom(char *str, t_parse **lst, int i)
 {
 	char *t;
 
@@ -63,10 +63,10 @@ static	void	ft_cuproom(char *str, t_list **lst, int i)
 	}
 }
 
-static t_list	*therooms(t_env *stok, char *str)
+t_parse	*therooms(t_env *stok, char *str)
 {
-	t_list	*tmp;
-	t_list	*lst;
+	t_parse	*tmp;
+	t_parse	*lst;
 	char	*one;
 
 	one = NULL;
@@ -89,10 +89,10 @@ static t_list	*therooms(t_env *stok, char *str)
 	return (lst);
 }
 
-t_list			*ft_searchlittleroad(t_env *stok, t_road *road)
+t_parse	*ft_searchlittleroad(t_env *stok, t_road *road)
 {
-	t_list *tmp;
-	t_list *ret;
+	t_parse *tmp;
+	t_parse *ret;
 	char	*little;
 
 	ret = NULL;
@@ -106,7 +106,7 @@ t_list			*ft_searchlittleroad(t_env *stok, t_road *road)
 			break ;
 		ft_add(little, &ret);
 		if (tmp)
-			ft_freepile(&tmp);
+			ft_free_list(&tmp);
 	}
 	if (little)
 		free(little);

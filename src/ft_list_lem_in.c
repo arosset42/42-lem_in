@@ -6,44 +6,45 @@
 /*   By: arosset <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/07 15:16:01 by arosset           #+#    #+#             */
-/*   Updated: 2017/09/07 15:16:03 by arosset          ###   ########.fr       */
+/*   Updated: 2017/10/21 16:13:14 by arosset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 
-int		ft_addroadend(char *str, int level, t_end **add)
+int		ft_listlen(t_parse *list)
 {
-	t_end *new;
-	t_end *tmp;
+	int i;
 
-	if (!(new = malloc(sizeof(t_end))))
+	i = 0;
+	while (list)
+	{
+		list = list->next;
+		i++;
+	}
+	return (i);
+}
+
+int		ft_add(char *str, t_parse **add)
+{
+	t_parse *new;
+
+	if (!(new = malloc(sizeof(t_parse))))
 		return (0);
 	new->str = ft_strdup(str);
-	new->level = level;
-	new->next = NULL;
-	tmp = *add;
-	if (!tmp)
-		*add = new;
-	else
-	{
-		while (tmp->next)
-		{
-			tmp = tmp->next;
-		}
-		tmp->next = new;
-	}
+	new->next = *add;
+	*add = new;
 	return (0);
 }
 
-int		ft_addend(char *str, t_list **add)
+int		ft_addend(char *str, t_parse **add)
 {
-	t_list *new;
-	t_list *tmp;
+	t_parse *new;
+	t_parse *tmp;
 
-	if (!(new = malloc(sizeof(t_list))))
+	if (!(new = malloc(sizeof(t_parse))))
 		return (0);
-	new->data = ft_strdup(str);
+	new->str = ft_strdup(str);
 	new->next = NULL;
 	tmp = *add;
 	if (!tmp)
@@ -59,18 +60,15 @@ int		ft_addend(char *str, t_list **add)
 	return (0);
 }
 
-int		ft_addroad(char *src, char *dest, t_road **add)
+int		ft_addroad(char *str, int level, t_road **add)
 {
 	t_road *new;
 	t_road *tmp;
 
 	if (!(new = malloc(sizeof(t_road))))
 		return (0);
-	new->src = ft_strdup(src);
-	new->dest = ft_strdup(dest);
-	new->use = 0;
-	new->line = ft_strjoin(src, "-");
-	new->line = ft_strjoin(new->line, dest);
+	new->str = ft_strdup(str);
+	new->level = level;
 	new->next = NULL;
 	tmp = *add;
 	if (!tmp)

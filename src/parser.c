@@ -12,13 +12,6 @@
 
 #include "../includes/lem_in.h"
 
-/*
-**	Parser Premiere ligne
-**	Erreur : commentaire modifiant la prochaine ligne
-**		     lecture GNL incorrect
-**			 presence de signe autre que des chiffres
-*/
-
 int		ft_line_ant(t_env *env, char **line, int fd)
 {
 	int		val;
@@ -43,11 +36,6 @@ int		ft_line_ant(t_env *env, char **line, int fd)
 	return (-1);
 }
 
-/*
-**	Verification de la ligne salle en cour
-** 	Si plus de 2 ' ' et que ce n'est pas un commentaire rejet
-*/
-
 int		ft_line_rooms(char **line)
 {
 	if (ft_count_char(*line, ' ') != 2 && ft_comment(*line) == 3)
@@ -55,7 +43,7 @@ int		ft_line_rooms(char **line)
 	return (1);
 }
 
-void	ft_road(char **line, t_env *env, t_list *tmp)
+void	ft_road(char **line, t_env *env, t_parse *tmp)
 {
 	int		len;
 	char	*src;
@@ -63,18 +51,18 @@ void	ft_road(char **line, t_env *env, t_list *tmp)
 
 	while (tmp)
 	{
-		len = ft_strlen(tmp->data);
-		if (ft_strncmp(*line, tmp->data, len) == 0)
+		len = ft_strlen(tmp->str);
+		if (ft_strncmp(*line, tmp->str, len) == 0)
 		{
 			if (line[0][len] == '-')
 			{
 				src = ft_strsub(*line, 0, len);
 				dst = ft_strsub(*line, len + 1, ft_strlen(*line) - (len + 1));
 			}
-			if (ft_check_name_road(env, src, dst))
+			if (ft_check_name_road(env, src, dst, *line))
 			{
-				free(src);
-				free(dst);
+				ft_strdel(&src);
+				ft_strdel(&dst);
 				break ;
 			}
 		}
@@ -85,7 +73,7 @@ void	ft_road(char **line, t_env *env, t_list *tmp)
 int		ft_line_road(char **line, t_env *env)
 {
 	int		val;
-	t_list	*tmp;
+	t_parse	*tmp;
 
 	tmp = env->room;
 	if ((val = ft_comment(*line)) < 2)
@@ -111,12 +99,14 @@ t_env	*ft_parse_file(void)
 		if (ft_check_and_add(env, &line) == 1)
 			break ;
 		ft_addend(line, &env->init);
+		ft_strdel(&line);
 		(get_next_line(0, &line) < 1) ? ft_error(env) : 0;
 	}
 	(val == 0) ? ft_error(env) : 0;
 	while (ft_line_road(&line, env))
 	{
 		ft_addend(line, &env->init);
+		ft_strdel(&line);
 		if (get_next_line(0, &line) < 1)
 			break ;
 	}

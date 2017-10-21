@@ -6,11 +6,26 @@
 /*   By: arosset <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/19 14:28:00 by arosset           #+#    #+#             */
-/*   Updated: 2017/10/19 14:30:44 by arosset          ###   ########.fr       */
+/*   Updated: 2017/10/21 16:11:49 by arosset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
+
+void	ft_freeroad(t_road **pile)
+{
+	t_road *cppile;
+
+	cppile = (*pile);
+	while (cppile)
+	{
+		cppile = (*pile)->next;
+		if ((*pile)->str)
+			free((*pile)->str);
+		free(*pile);
+		*pile = cppile;
+	}
+}
 
 void	ft_free_env(t_env *env)
 {
@@ -18,45 +33,59 @@ void	ft_free_env(t_env *env)
 	{
 		if (env->room)
 			ft_free_list(&env->room);
+		if (env->road)
+			ft_free_list(&env->road);
+		if (env->file)
+			ft_free_list(&env->file);
 		if (env->init)
 			ft_free_list(&env->init);
-		if (env->road)
-			ft_free_road(&env->road);
 		if (env->start)
 			ft_strdel(&env->start);
 		if (env->end)
 			ft_strdel(&env->end);
+		if (env->graph)
+			ft_free_graph(env->graph);
 		free(env);
 	}
 }
 
-void	ft_free_road(t_road **road)
+void	ft_free_graph(t_llist *tree)
 {
-	t_road *tmp;
+	t_llist	*tmp;
+	t_llist *tmp2;
+	t_tree	*father;
 
-	tmp = (*road);
-	while (tmp)
+	tmp = tree;
+	if (tree->node)
 	{
-		tmp = (*road)->next;
-		if ((*road)->src)
-			free((*road)->src);
-		if ((*road)->dest)
-			free((*road)->dest);
-		free(*road);
-		*road = tmp;
+		father = tree->node;
+		free(father->str);
+		if (father->child)
+		{
+			tmp2 = father->child;
+			ft_free_graph(tmp2);
+		}
+		free(tree->node);
 	}
+	if (tree->next)
+	{
+		tmp = tree->next;
+		ft_free_graph(tmp);
+	}
+	if (tree)
+		free(tree);
 }
 
-void	ft_free_list(t_list **list)
+void	ft_free_list(t_parse **list)
 {
-	t_list *tmp;
+	t_parse *tmp;
 
 	tmp = (*list);
 	while (tmp)
 	{
 		tmp = (*list)->next;
-		if ((*list)->data)
-			free((*list)->data);
+		if ((*list)->str)
+			free((*list)->str);
 		free(*list);
 		*list = tmp;
 	}
