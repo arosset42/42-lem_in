@@ -89,6 +89,7 @@ void	ft_free_list(t_parse **list)
 		free(*list);
 		*list = tmp;
 	}
+	free(tmp);
 }
 
 void	ft_free_tab(char **tab)

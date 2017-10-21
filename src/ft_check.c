@@ -23,7 +23,7 @@ int		ft_name_road(t_env *env, char *s)
 			return (1);
 		room = room->next;
 	}
-	ft_free_list(room);
+	ft_free_list(&room);
 	return (0);
 }
 
