@@ -12,64 +12,113 @@
 
 #include "./includes/libft.h"
 
-static char		*ft_read(int const fd, char *str, char *buf)
+char	*ft_strleeks(char **phrase, char **s)
 {
-	int		len;
-	int		ret;
-	char	*tmp;
+	char	*str;
 
-	len = ft_strlen(buf) + ft_strlen(str);
-	if (ft_strchr(buf, '\n') == NULL)
-		while ((ret = read(fd, buf, BUFF_SIZE)))
-		{
-			if (ret == -1)
-				return (NULL);
-			buf[ret] = '\0';
-			tmp = ft_strjoin(str, buf);
-			free(str);
-			str = tmp;
-			if (ft_strchr(str, '\n') != NULL)
-				break ;
-		}
+	str = NULL;
+	str = ft_strjoin(*phrase, *s);
+	ft_strdel(s);
+	ft_strdel(phrase);
 	return (str);
 }
 
-static int		ft_return(char **line, char **str, int ret)
+char	*ft_cuprest(int n, char *phrase, int c)
 {
-	if (ret == -1)
-		*line = NULL;
-	else if (ret == 0)
+	int		i;
+	int		j;
+	char	*str;
+	char	*str2;
+
+	j = -1;
+	if (!(str = (char*)malloc(sizeof(char) * c + 1)))
+		return (NULL);
+	if (!(str2 = malloc(sizeof(char) * (ft_strlen(phrase)))))
+		return (NULL);
+	while (phrase[++j] != '\n')
+		str[j] = phrase[j];
+	str[j] = '\0';
+	i = j;
+	j = -1;
+	while (phrase[++i] != '\0')
+		str2[++j] = phrase[i];
+	str2[++j] = '\0';
+	if (n == 0)
 	{
-		*line = NULL;
-		free(*str);
+		ft_strdel(&str2);
+		return (str);
 	}
-	else
-		free(*str);
-	return (ret);
+	ft_strdel(&str);
+	return (str2);
 }
 
-int				get_next_line(int const fd, char **line)
+char	*ft_cpybuf(char *buf1, int fd, int *res)
 {
-	static char		buf[BUFF_SIZE + 1] = {0};
-	char			*str;
+	int		ret;
+	char	buf[BUFF_SIZE + 1];
+	char	*phrase;
+	char	*s;
 
-	if (line == NULL || fd < 0)
-		return (-1);
-	str = ft_strdup(buf);
-	if (!(str = ft_read(fd, str, buf)))
-		return (ft_return(line, &str, -1));
-	if (ft_strlen(str) > 0 && ft_strchr(buf, '\n') == NULL)
+	s = NULL;
+	phrase = ft_strdup(buf1);
+	while ((ret = read(fd, buf, BUFF_SIZE)))
 	{
-		*line = ft_strsub(str, 0, ft_strlen(str));
-		ft_memset(buf, '\0', BUFF_SIZE + 1);
-		return (ft_return(line, &str, 1));
+		s = ft_strnew(ret);
+		ft_strncpy(s, buf, ret);
+		phrase = ft_strleeks(&phrase, &s);
+		if ((ft_strchr(phrase, '\n')))
+			break ;
 	}
-	else if (ft_strchr(buf, '\n') == NULL)
-		return (ft_return(line, &str, 0));
+	*res = ret;
+	return (phrase);
+}
+
+void	ft_rest(char **rest, char **phrase)
+{
+	char	*t;
+	int		i;
+
+	t = NULL;
+	i = 0;
+	if ((*rest))
+	{
+		if ((*phrase))
+			*phrase = ft_strleeks(rest, phrase);
+		else
+			*phrase = ft_strdup(*rest);
+	}
+	t = ft_strdup(*phrase);
+	if ((ft_strchr(*phrase, '\n')))
+	{
+		while (t[i] != '\n')
+			i++;
+		*rest = ft_cuprest(1, *phrase, i);
+		ft_strdel(phrase);
+		*phrase = ft_cuprest(0, t, i);
+	}
 	else
-	{
-		*line = ft_strsub(str, 0, ft_strchr(str, '\n') - str);
-		ft_strcpy(buf, &buf[ft_strchr(buf, '\n') - buf + 1]);
-	}
-	return (ft_return(line, &str, 1));
+		ft_strdel(rest);
+	ft_strdel(&t);
+}
+
+int		get_next_line(const int fd, char **line)
+{
+	int			res;
+	char		buf[BUFF_SIZE + 1];
+	static char	*rest;
+	char		*phrase;
+
+	if (BUFF_SIZE < 0)
+		return (-1);
+	res = read(fd, buf, BUFF_SIZE);
+	if (res == -1 || fd == -1)
+		return (-1);
+	if (res == 0 && (rest == NULL || !ft_strlen(rest)))
+		return (0);
+	buf[res] = '\0';
+	phrase = ft_cpybuf(buf, fd, &res);
+	ft_rest(&rest, &phrase);
+	*line = ft_strdup(phrase);
+	ft_strdel(&phrase);
+	return (1);
 }

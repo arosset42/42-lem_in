@@ -18,13 +18,12 @@ t_env	*init_env(void)
 
 	if (!(env = (t_env*)malloc(sizeof(t_env))))
 		malloc_error();
-	env->nb_ants = 0;
 	env->room = NULL;
+	env->room2 = NULL;
 	env->road = NULL;
-	env->init = NULL;
+	env->com = NULL;
 	env->file = NULL;
 	env->start = NULL;
 	env->end = NULL;
-	env->graph = NULL;
 	return (env);
 }

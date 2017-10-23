@@ -48,62 +48,52 @@ int		ft_check_int(char *str)
 	return (total * neg);
 }
 
-int		ft_comment(char *line)
+char	*ft_firstword(char *str, char c)
 {
-	if (ft_strcmp(line, "##end") == 0)
-		return (0);
-	else if (ft_strcmp(line, "##start") == 0)
-		return (1);
-	else if (ft_strlen(line) > 2 && line[0] == '#' && line[1] != '#')
-		return (2);
-	else if (line[0] == '#')
-		return (2);
-	else
-		return (3);
+	char	*start;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	while (str[i] == c && str[i] != '\0')
+		i++;
+	j = i;
+	while (str[i] != c && str[i] != '\0')
+		i++;
+	start = malloc(sizeof(char) * (i - j) + 1);
+	i = 0;
+	while (str[j] != c && str[i] != '\0')
+	{
+		start[i] = str[j];
+		i++;
+		j++;
+	}
+	start[j] = '\0';
+	return (start);
 }
 
-int		ft_count_char(char *str, char c)
+char	*ft_lastword(char *str, char c)
 {
-	int		nbr;
-	int		index;
+	char	*last;
+	int		i;
+	int		j;
 
-	nbr = 0;
-	index = 0;
-	while (str[index])
+	i = 0;
+	while (str[i] != '\0')
+		i++;
+	j = i;
+	while (str[i] != c && i > 0)
+		i--;
+	last = malloc(sizeof(char) * (j - i) + 1);
+	i++;
+	j = 0;
+	while (str[i] != '\0')
 	{
-		if (str[index] == c)
-			nbr++;
-		if (str[0] == c)
-			return (-1);
-		index++;
+		last[j] = str[i];
+		i++;
+		j++;
 	}
-	return (nbr);
-}
-
-int		ft_check(char **line)
-{
-	static int		nbs = 0;
-	static int		nbe = 0;
-	static int		value = 0;
-
-	if (ft_strcmp(*line, "##start") == 0)
-	{
-		(value == 1) ? ft_error(NULL) : 1;
-		nbs++;
-		value = 1;
-	}
-	else if (ft_strcmp(*line, "##end") == 0)
-	{
-		(value == 1) ? ft_error(NULL) : 1;
-		nbe++;
-		value = 1;
-	}
-	else if (ft_comment(*line) == 3
-			&& ft_count_char(*line, ' ') == 2)
-		value = 0;
-	if (nbs > 1 || nbe > 1)
-		ft_error(NULL);
-	if (value == 1 || nbs == 0 || nbe == 0)
-		return (0);
-	return (1);
+	last[j] = '\0';
+	return (last);
 }

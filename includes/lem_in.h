@@ -73,7 +73,7 @@ typedef struct		s_env
 
 int					ft_displayant(t_parse *ok, int nb, char *end);
 int					ft_displaylist(t_env env);
-t_env				*init_env(void);
+
 
 /*
 **					Fonction list
@@ -88,33 +88,32 @@ int					ft_addroad(char *str, int level, t_road **add);
 **					Fonction check
 */
 
+int		ft_formatroad(char *road);
+int			ft_roominroad(char *str, t_parse *room);
 int					ft_checklevel(t_llist *tree, char *str, int i,
 						t_road **road);
-int					ft_check_and_add(t_env *env, char **line);
-int					ft_check_name_road(t_env *env, char *src, char *dst,
-						char *line);
+int		ft_check_int(char *str);
+int		check_nbr(char c, int total, int sign);
 
 /*
 **					Parser
 */
 
-int					ft_comment(char *line);
-int					ft_check(char **line);
-int					ft_count_char(char *str, char c);
-int					ft_check_int(char *str);
-t_env				*ft_parse_file(void);
+int			ft_nbant(char *str);
 
 /*
 **					Fonction search
 */
 
+char				*ft_lastword(char *str, char c);
+char				*ft_firstword(char *str, char c);
 char				*ft_searchroominroad(char *str);
 char				*ft_firstroominroad(char *str);
 int					ft_searchlevel(t_road *road, char *str);
 int					ft_searchinroom(t_parse *room, char *str);
 int					ft_searchinlist(char *str, t_parse *file);
 int					ft_search_room(t_env *env, char *s);
-void				ft_set_start_end(char *s, char *str, t_env *env);
+
 
 /*
 **					Fonction create Graph
@@ -139,6 +138,8 @@ char				*thebestroom(t_parse *lst, t_road *road);
 **					Fonction Free and Error
 */
 
+void 	ft_error_list(t_parse **tmp);
+void 	ft_put_error(void);
 void				malloc_error(void);
 void				ft_error(t_env *env);
 void				ft_freeroad(t_road **pile);
