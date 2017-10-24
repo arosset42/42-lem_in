@@ -6,7 +6,7 @@
 /*   By: arosset <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/17 15:43:54 by arosset           #+#    #+#             */
-/*   Updated: 2017/10/19 14:31:19 by arosset          ###   ########.fr       */
+/*   Updated: 2017/10/24 15:49:47 by arosset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int			ft_roominroad(char *str, t_parse *room)
 	return (0);
 }
 
-int		ft_formatroad(char *road)
+int			ft_formatroad(char *road)
 {
 	int i;
 	int c;
@@ -63,4 +63,27 @@ int		ft_formatroad(char *road)
 		return (1);
 	else
 		return (0);
+}
+
+int			ft_cmpinroom(t_parse *room)
+{
+	t_parse *tmp;
+	char	*str;
+
+	tmp = room;
+	if (!room)
+		return (0);
+	while (tmp)
+	{
+		str = tmp->str;
+		room = tmp->next;
+		while (room)
+		{
+			if (!ft_strcmp(room->str, str))
+				return (0);
+			room = room->next;
+		}
+		tmp = tmp->next;
+	}
+	return (1);
 }

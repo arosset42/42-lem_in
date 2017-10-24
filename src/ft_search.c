@@ -6,13 +6,13 @@
 /*   By: arosset <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/19 14:25:22 by arosset           #+#    #+#             */
-/*   Updated: 2017/10/19 14:33:43 by arosset          ###   ########.fr       */
+/*   Updated: 2017/10/24 15:51:01 by arosset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 
-int		ft_searchlevel(t_road *road, char *str)
+int			ft_searchlevel(t_road *road, char *str)
 {
 	while (road)
 	{
@@ -23,31 +23,50 @@ int		ft_searchlevel(t_road *road, char *str)
 	return (2147483647);
 }
 
-int		ft_search_room(t_env *env, char *s)
+static int	ft_longnb(char *str)
 {
-	t_parse	*tmp;
-	char	*str;
+	int i;
+	int j;
 
-	tmp = env->init;
-	while (tmp)
+	i = 0;
+	j = 0;
+	while (str[i] == '0' && str[i] != '\0')
+		i++;
+	while (str[i] != '\0')
 	{
-		if (ft_strcmp(s, tmp->str) == 0)
-		{
-			while (tmp)
-			{
-				str = tmp->str;
-				if (str[0] != '#')
-				{
-					str = ft_strsub(str, 0, ft_strchr(str, ' ') - str);
-					ft_set_start_end(s, str, env);
-					ft_strdel(&str);
-					return (1);
-				}
-				tmp = tmp->next;
-			}
-		}
-		tmp = tmp->next;
+		i++;
+		j++;
 	}
-	ft_free_list(&tmp);
-	return (0);
+	if (j > 10)
+		return (0);
+	return (1);
+}
+
+int			ft_nbant(char *str)
+{
+	int ant;
+	int i;
+
+	ant = 0;
+	i = 0;
+	if (!str || !ft_longnb(str))
+		return (0);
+	while (str[i] != '\0')
+	{
+		if (str[i] < 48 || str[i] > 57)
+		{
+			i = 0;
+			break ;
+		}
+		i++;
+	}
+	if (i > 0)
+	{
+		ant = ft_atoi(str);
+		if (ant > 2147483647 || ant <= 0)
+			return (0);
+		return (1);
+	}
+	else
+		return (0);
 }

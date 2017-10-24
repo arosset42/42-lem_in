@@ -12,7 +12,30 @@
 
 #include "../includes/lem_in.h"
 
-void	ft_freeroad(t_road **pile)
+int		ft_freeanderror(t_parse **tmp)
+{
+	ft_freepile(tmp);
+	ft_putendl("ERROR");
+	return (0);
+}
+
+int		ft_freepile(t_parse **pile)
+{
+	t_parse *cppile;
+
+	cppile = (*pile);
+	while (cppile)
+	{
+		cppile = (*pile)->next;
+		if ((*pile)->str)
+			free((*pile)->str);
+		free(*pile);
+		*pile = cppile;
+	}
+	return (1);
+}
+
+int		ft_freeroad(t_road **pile)
 {
 	t_road *cppile;
 
@@ -25,31 +48,24 @@ void	ft_freeroad(t_road **pile)
 		free(*pile);
 		*pile = cppile;
 	}
+	return (0);
 }
 
-void	ft_free_env(t_env *env)
+void	ft_freetab(char **tab)
 {
-	if (env)
+	int i;
+
+	i = 0;
+	while (tab[i])
 	{
-		if (env->room)
-			ft_free_list(&env->room);
-		if (env->road)
-			ft_free_list(&env->road);
-		if (env->file)
-			ft_free_list(&env->file);
-		if (env->init)
-			ft_free_list(&env->init);
-		if (env->start)
-			ft_strdel(&env->start);
-		if (env->end)
-			ft_strdel(&env->end);
-		if (env->graph)
-			ft_free_graph(env->graph);
-		free(env);
+		free(tab[i]);
+		i++;
 	}
+	free(tab[i]);
+	free(tab);
 }
 
-void	ft_free_graph(t_llist *tree)
+void	ft_freetree(t_llist *tree)
 {
 	t_llist	*tmp;
 	t_llist *tmp2;
@@ -63,44 +79,15 @@ void	ft_free_graph(t_llist *tree)
 		if (father->child)
 		{
 			tmp2 = father->child;
-			ft_free_graph(tmp2);
+			ft_freetree(tmp2);
 		}
 		free(tree->node);
 	}
 	if (tree->next)
 	{
 		tmp = tree->next;
-		ft_free_graph(tmp);
+		ft_freetree(tmp);
 	}
 	if (tree)
 		free(tree);
-}
-
-void	ft_free_list(t_parse **list)
-{
-	t_parse *tmp;
-
-	tmp = (*list);
-	while (tmp)
-	{
-		tmp = (*list)->next;
-		if ((*list)->str)
-			free((*list)->str);
-		free(*list);
-		*list = tmp;
-	}
-	free(tmp);
-}
-
-void	ft_free_tab(char **tab)
-{
-	int		i;
-
-	i = 0;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
 }

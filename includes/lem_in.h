@@ -6,7 +6,7 @@
 /*   By: arosset <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/08 16:16:36 by arosset           #+#    #+#             */
-/*   Updated: 2017/10/21 16:16:48 by arosset          ###   ########.fr       */
+/*   Updated: 2017/10/24 15:49:22 by arosset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 # define LEM_IN_H
 
 # include "../libft/includes/libft.h"
-# define INT_MAX	0x7FFFFFFF
-# define INT_MIN	(int)0x80000000
 
-/*
-** Structure graph
-*/
+typedef struct		s_parse
+{
+	char			*str;
+	struct s_parse	*next;
+}					t_parse;
 
 typedef struct		s_tree
 {
@@ -28,16 +28,6 @@ typedef struct		s_tree
 	struct s_llist	*child;
 }					t_tree;
 
-typedef struct		s_llist
-{
-	t_tree			*node;
-	struct s_llist	*next;
-}					t_llist;
-
-/*
-** Structure list parsing
-*/
-
 typedef struct		s_road
 {
 	char			*str;
@@ -45,107 +35,64 @@ typedef struct		s_road
 	struct s_road	*next;
 }					t_road;
 
-typedef struct		s_parse
+typedef struct		s_llist
 {
-	char			*str;
-	struct s_parse	*next;
-}					t_parse;
+	t_tree			*node;
+	struct s_llist	*next;
+}					t_llist;
 
-/*
-** Structure environement
-*/
-
-typedef struct		s_env
+typedef struct		s_stock
 {
-	int				nb_ants;
 	t_parse			*room;
+	t_parse			*room2;
 	t_parse			*road;
+	t_parse			*com;
 	t_parse			*file;
-	t_parse			*init;
-	t_llist			*graph;
-	char			*start;
 	char			*end;
-}					t_env;
+	char			*start;
+}					t_stock;
 
-/*
-**					Initialisation and Print
-*/
-
-int					ft_displayant(t_parse *ok, int nb, char *end);
-int					ft_displaylist(t_env env);
-
-
-/*
-**					Fonction list
-*/
-
-int					ft_listlen(t_parse *list);
+t_stock				*ft_initstock(void);
+int					ft_cmpinroom(t_parse *room);
 int					ft_add(char *str, t_parse **add);
+int					ft_displayant(t_parse *ok, int nb, char *end);
+int					ft_freeanderror(t_parse **tmp);
+int					ft_nbant(char *str);
 int					ft_addend(char *str, t_parse **add);
-int					ft_addroad(char *str, int level, t_road **add);
-
-/*
-**					Fonction check
-*/
-
-int		ft_formatroad(char *road);
-int			ft_roominroad(char *str, t_parse *room);
-int					ft_checklevel(t_llist *tree, char *str, int i,
-						t_road **road);
-int		ft_check_int(char *str);
-int		check_nbr(char c, int total, int sign);
-
-/*
-**					Parser
-*/
-
-int			ft_nbant(char *str);
-
-/*
-**					Fonction search
-*/
-
-char				*ft_lastword(char *str, char c);
+int					ft_parse(void);
+int					ft_displaylist(t_parse *list);
+char				*ft_startandend(t_parse *room, int i);
+int					ft_searchbestroad(t_parse *room, t_parse *road);
 char				*ft_firstword(char *str, char c);
+char				*ft_lastword(char *str, char cc);
+t_parse				*ft_cpypile(t_parse *pilea);
+int					ft_listlen(t_parse *list);
+char				*ft_listend(t_parse *list);
+t_tree				*ft_firsttree(t_parse *room, t_parse *road);
+t_llist				*ft_createlist(char *str, char *father, t_stock *stok);
+int					ft_roominroad(char *str, t_parse *room);
 char				*ft_searchroominroad(char *str);
 char				*ft_firstroominroad(char *str);
-int					ft_searchlevel(t_road *road, char *str);
-int					ft_searchinroom(t_parse *room, char *str);
+t_llist				*ft_build(t_tree *tree, t_llist *lst);
+t_tree				*ft_createtree(char *str, t_stock *stok);
+char				*ft_searchchild(char *str, t_stock *stok);
+char				*ft_searchbrother(char *str, char *father, t_stock *stok);
 int					ft_searchinlist(char *str, t_parse *file);
-int					ft_search_room(t_env *env, char *s);
-
-
-/*
-**					Fonction create Graph
-*/
-
-char				*ft_returnchild(char *one, char *str, t_env *stok, int i);
-char				*ft_searchbrother(char *str, char *father, t_env *stok);
-char				*ft_searchchild(char *str, t_env *stok);
-t_tree				*ft_createtree(char *str, t_env *stok);
-t_llist				*ft_createlist(char *str, char *father, t_env *stok);
-void				ft_start_graph(t_env *env);
-
-/*
-**					Algo
-*/
-
-t_parse				*ft_searchlittleroad(t_env *stok, t_road *road);
-t_parse				*therooms(t_env *stok, char *str);
-void				ft_cuproom(char *str, t_parse **lst, int i);
-char				*thebestroom(t_parse *lst, t_road *road);
-/*
-**					Fonction Free and Error
-*/
-
-void 	ft_error_list(t_parse **tmp);
-void 	ft_put_error(void);
-void				malloc_error(void);
-void				ft_error(t_env *env);
-void				ft_freeroad(t_road **pile);
-void				ft_free_graph(t_llist *tree);
-void				ft_free_tab(char **tab);
-void				ft_free_list(t_parse **list);
-void				ft_free_env(t_env *env);
-
+int					ft_searchinroom(t_parse *room, char *str);
+int					ft_errorinroom(t_parse *room);
+int					ft_checklevel(t_llist *tree, char *str, int i,
+					t_road **road);
+int					ft_addroad(char *str, int level, t_road **add);
+void				ft_displayroad(t_road *road);
+t_parse				*ft_searchlittleroad(t_stock *stok, t_road *road);
+int					ft_searchlevel(t_road *road, char *str);
+int					ft_freepile(t_parse **pile);
+int					ft_freeroad(t_road **pile);
+int					ft_formatroad(char *road);
+void				ft_freetree(t_llist *tree);
+int					ft_freestock(t_stock *stok);
+int					ft_totalleaks(t_parse **lem, t_stock *stok,
+					t_road **road, t_llist *tree);
+void				ft_freetab(char **tab);
+int					ft_putendlreturn(char const *s);
 #endif

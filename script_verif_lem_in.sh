@@ -42,25 +42,25 @@ echo "Test OK 1: \033[00m\n"
 echo "\n\033[31m=== TEST comments : \033[00m\n"
 ./lem-in < test/tests/comments
 
-echo "\n\033[31m=== TEST ERROR duplicatepipe : \033[00m\n"
+echo "\n\033[31m=== TEST duplicatepipe : \033[00m\n"
 ./lem-in < test/tests/duplicatepipe
 
-echo "\n\033[31m=== TEST ERROR duplicatepipe : \033[00m\n"
+echo "\n\033[31m=== TEST duplicatepipe : \033[00m\n"
 ./lem-in < test/tests/duplicatepipe1
 
-echo "\n\033[31m=== TEST ERROR llegalname : \033[00m\n"
+echo "\n\033[31m=== TEST ERROR illegalname : \033[00m\n"
 ./lem-in < test/tests/illegalname
 
-echo "\n\033[31m=== TEST ERROR llegalname : \033[00m\n"
+echo "\n\033[31m=== TEST ERROR illegalname : \033[00m\n"
 ./lem-in < test/tests/illegalname1
 
-echo "\n\033[31m=== TEST ERROR in0 : \033[00m\n"
+echo "\n\033[31m=== TEST in0 : \033[00m\n"
 ./lem-in < test/tests/in0
 
-echo "\n\033[31m=== TEST ERROR invalidcommand : \033[00m\n"
+echo "\n\033[31m=== TEST invalidcommand : \033[00m\n"
 ./lem-in < test/tests/invalidcommand
 
-echo "\n\033[31m=== TEST ERROR invalidcommand : \033[00m\n"
+echo "\n\033[31m=== TEST invalidcommand : \033[00m\n"
 ./lem-in < test/tests/invalidcommand1
 
 echo "\n\033[31m=== TEST ERROR loop : \033[00m\n"
@@ -84,12 +84,12 @@ echo "\n\033[31m=== TEST ERROR nostart : \033[00m\n"
 echo "\n\033[31m=== TEST ERROR overflow : \033[00m\n"
 ./lem-in < test/tests/overflow
 
-echo "\n\033[31m=== TEST ERROR shortest : \033[00m\n"
+echo "\n\033[31m=== TEST shortest : \033[00m\n"
 ./lem-in < test/tests/shortest
 
-echo "\n\033[31m=== TEST ERROR simple : \033[00m\n"
+echo "\n\033[31m=== TEST  simple : \033[00m\n"
 ./lem-in < test/tests/simple
-echo "\n\033[31m=== TEST ERROR simple1 : \033[00m\n"
+echo "\n\033[31m=== TEST  simple1 : \033[00m\n"
 ./lem-in < test/tests/simple1
 echo "\n\033[31m=== TEST ERROR simple2 : \033[00m\n"
 ./lem-in < test/tests/simple2

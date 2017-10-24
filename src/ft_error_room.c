@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_errorinroom.c                                   :+:      :+:    :+:   */
+/*   ft_error_room.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kahantar <kahantar@42.student.fr>          +#+  +:+       +#+        */
+/*   By: arosset <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/03 09:28:23 by kahantar          #+#    #+#             */
-/*   Updated: 2017/05/15 07:35:23 by kahantar         ###   ########.fr       */
+/*   Created: 2017/10/24 15:20:03 by arosset           #+#    #+#             */
+/*   Updated: 2017/10/24 15:20:05 by arosset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/lemin.h"
+#include "../includes/lem_in.h"
 
 static int		ft_words(char *str)
 {

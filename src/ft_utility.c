@@ -12,42 +12,6 @@
 
 #include "../includes/lem_in.h"
 
-int		check_nbr(char c, int total, int sign)
-{
-	int		tmp;
-
-	tmp = total * 10;
-	if (sign == 1 && c - '0' > INT_MAX - tmp)
-		ft_error(NULL);
-	if (sign == -1 && -(c - '0') < INT_MIN + tmp)
-		ft_error(NULL);
-	return (0);
-}
-
-int		ft_check_int(char *str)
-{
-	size_t		i;
-	int			neg;
-	int			total;
-
-	total = 0;
-	neg = 1;
-	i = 0;
-	if (str[i] == '-')
-		neg = -1;
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		check_nbr(str[i], total, neg);
-		total = total * 10 + (str[i] - '0');
-		i++;
-	}
-	if (str[i] != 0)
-		ft_error(NULL);
-	return (total * neg);
-}
-
 char	*ft_firstword(char *str, char c)
 {
 	char	*start;

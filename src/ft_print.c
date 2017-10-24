@@ -12,26 +12,29 @@
 
 #include "../includes/lem_in.h"
 
-void	ft_disl(char *str, char *display)
+static void	ft_disl(char *str, char *display)
 {
 	ft_putstr(str);
 	ft_putendl(display);
 	ft_putstr("\033[0m");
 }
 
-int		ft_displaylist(t_env env)
+int			ft_displaylist(t_parse *list)
 {
-	while (env.init)
+	t_parse *display;
+
+	display = list;
+	while (display)
 	{
-		if (env.init->str[0] == '#' && env.init->str[1] == '#')
-			ft_disl("\033[32m", env.init->str);
-		else if (env.init->str[0] == '#' && env.init->str[1] != '#')
-			ft_disl("\033[31m", env.init->str);
-		else if (!ft_strchr(env.init->str, '-'))
-			ft_disl("\033[33m", env.init->str);
+		if (display->str[0] == '#' && display->str[1] == '#')
+			ft_disl("\033[32m", display->str);
+		else if (display->str[0] == '#' && display->str[1] != '#')
+			ft_disl("\033[31m", display->str);
+		else if (!ft_strchr(display->str, '-'))
+			ft_disl("\033[33m", display->str);
 		else
-			ft_disl("\033[34m", env.init->str);
-		env.init = env.init->next;
+			ft_disl("\033[34m", display->str);
+		display = display->next;
 	}
 	return (1);
 }

@@ -12,28 +12,57 @@
 
 #include "../includes/lem_in.h"
 
-void 	ft_error_list(t_parse **tmp)
+int	ft_freestock(t_stock *stok)
 {
-	ft_free_list(tmp);
-	ft_printf("Error\n");
-	exit(EXIT_FAILURE);
+	if (stok)
+	{
+		if (stok->room)
+			ft_freepile(&stok->room);
+		if (stok->room2)
+			ft_freepile(&stok->room2);
+		if (stok->road)
+			ft_freepile(&stok->road);
+		if (stok->file)
+			ft_freepile(&stok->file);
+		if (stok->com)
+			ft_freepile(&stok->com);
+		if (stok->end)
+			free(stok->end);
+		if (stok->start)
+			free(stok->start);
+		ft_displaylist(stok->room2);
+		free(stok);
+	}
+	return (1);
 }
 
-void 	ft_put_error(void)
+int	ft_putendlreturn(char const *s)
 {
-	ft_printf("Error\n");
-	exit(EXIT_FAILURE);
+	int i;
+
+	i = 0;
+	if (s)
+	{
+		while (s[i] != '\0')
+		{
+			ft_putchar(s[i]);
+			i++;
+		}
+		ft_putchar('\n');
+	}
+	return (0);
 }
 
-void	ft_error(t_env *env)
+int	ft_totalleaks(t_parse **lem, t_stock *stok, t_road **road,
+		t_llist *tree)
 {
-	ft_free_env(env);
-	ft_printf("Error\n");
-	exit(EXIT_FAILURE);
-}
-
-void	malloc_error(void)
-{
-	ft_printf("Error\n");
-	exit(EXIT_FAILURE);
+	if (stok)
+		ft_freestock(stok);
+	if (lem)
+		ft_freepile(lem);
+	if (road)
+		ft_freeroad(road);
+	if (tree)
+		ft_freetree(tree);
+	return (1);
 }

@@ -6,13 +6,13 @@
 /*   By: arosset <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 11:09:11 by arosset           #+#    #+#             */
-/*   Updated: 2017/10/21 16:11:04 by arosset          ###   ########.fr       */
+/*   Updated: 2017/10/24 15:50:09 by arosset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 
-int		ft_checklevel(t_llist *tree, char *str, int i, t_road **road)
+int				ft_checklevel(t_llist *tree, char *str, int i, t_road **road)
 {
 	tree->node->level = i;
 	ft_addroad(tree->node->str, i, road);
@@ -23,7 +23,7 @@ int		ft_checklevel(t_llist *tree, char *str, int i, t_road **road)
 	return (1);
 }
 
-char	*thebestroom(t_parse *lst, t_road *road)
+static char		*thebestroom(t_parse *lst, t_road *road)
 {
 	char *tmp;
 
@@ -45,7 +45,7 @@ char	*thebestroom(t_parse *lst, t_road *road)
 	return (tmp);
 }
 
-void	ft_cuproom(char *str, t_parse **lst, int i)
+static	void	ft_cuproom(char *str, t_parse **lst, int i)
 {
 	char *t;
 
@@ -63,7 +63,7 @@ void	ft_cuproom(char *str, t_parse **lst, int i)
 	}
 }
 
-t_parse	*therooms(t_env *stok, char *str)
+static t_parse	*therooms(t_stock *stok, char *str)
 {
 	t_parse	*tmp;
 	t_parse	*lst;
@@ -89,7 +89,7 @@ t_parse	*therooms(t_env *stok, char *str)
 	return (lst);
 }
 
-t_parse	*ft_searchlittleroad(t_env *stok, t_road *road)
+t_parse			*ft_searchlittleroad(t_stock *stok, t_road *road)
 {
 	t_parse *tmp;
 	t_parse *ret;
@@ -106,7 +106,7 @@ t_parse	*ft_searchlittleroad(t_env *stok, t_road *road)
 			break ;
 		ft_add(little, &ret);
 		if (tmp)
-			ft_free_list(&tmp);
+			ft_freepile(&tmp);
 	}
 	if (little)
 		free(little);

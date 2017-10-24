@@ -6,13 +6,13 @@
 /*   By: arosset <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/14 14:06:13 by arosset           #+#    #+#             */
-/*   Updated: 2017/10/21 16:12:38 by arosset          ###   ########.fr       */
+/*   Updated: 2017/10/24 15:51:42 by arosset          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
 
-char	*ft_searchbrother(char *str, char *father, t_env *stok)
+char			*ft_searchbrother(char *str, char *father, t_stock *stok)
 {
 	char	*one;
 	char	*seconde;
@@ -41,7 +41,7 @@ char	*ft_searchbrother(char *str, char *father, t_env *stok)
 	return (seconde);
 }
 
-char	*ft_returnchild(char *one, char *str, t_env *stok, int i)
+static char		*ft_returnchild(char *one, char *str, t_stock *stok, int i)
 {
 	char *seconde;
 
@@ -61,7 +61,7 @@ char	*ft_returnchild(char *one, char *str, t_env *stok, int i)
 	return (NULL);
 }
 
-char	*ft_searchchild(char *str, t_env *stok)
+char			*ft_searchchild(char *str, t_stock *stok)
 {
 	char	*one;
 	t_parse	*tmp;
@@ -90,7 +90,7 @@ char	*ft_searchchild(char *str, t_env *stok)
 	return (NULL);
 }
 
-t_tree	*ft_createtree(char *str, t_env *stok)
+t_tree			*ft_createtree(char *str, t_stock *stok)
 {
 	t_tree	*tree;
 	char	*name;
@@ -115,7 +115,7 @@ t_tree	*ft_createtree(char *str, t_env *stok)
 	return (tree);
 }
 
-t_llist	*ft_createlist(char *str, char *father, t_env *stok)
+t_llist			*ft_createlist(char *str, char *father, t_stock *stok)
 {
 	t_llist		*tree;
 	char		*tmp;
